@@ -2,13 +2,20 @@
 	"name": "listtools",
 	"displayName": "ListTools",
 	"description": "Some list utils",
-	"version": "0.0.1",
+	"version": "0.0.2",
+	"publisher": "MathewReji",
+	"license": "MIT",
+	"icon": "images/icon.png",
 	"engines": {
 		"vscode": "^1.74.0"
 	},
 	"categories": [
 		"Other"
 	],
+	"repository": {
+		"url": "https://github.com/matt493/listtools",
+		"type": "git"
+	},
 	"activationEvents": [
 		"onCommand:listtools.removeDuplicateLines",
 		"onCommand:listtools.sortLinesAscending",
