@@ -1,8 +1,8 @@
 {
 	"name": "listtools",
-	"displayName": "ListTools",
+	"displayName": "List Tools",
 	"description": "Some list utils",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"publisher": "MathewReji",
 	"license": "MIT",
 	"icon": "images/icon.png",
@@ -17,17 +17,15 @@
 		"type": "git"
 	},
 	"activationEvents": [
-		"onCommand:listtools.removeDuplicateLines",
 		"onCommand:listtools.sortLinesAscending",
-		"onCommand:listtools.sortLinesDescending"
+		"onCommand:listtools.sortLinesDescending",
+		"onCommand:listtools.findDuplicateLines",
+		"onCommand:listtools.findDistinctLines",
+		"onCommand:listtools.findUniqueLines"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "listtools.removeDuplicateLines",
-				"title": "LT: Remove Duplicate Lines"
-			},
 			{
 				"command": "listtools.sortLinesAscending",
 				"title": "LT: Sort Lines Ascending"
@@ -39,6 +37,10 @@
 			{
 				"command": "listtools.findDuplicateLines",
 				"title": "LT: Find Duplicate Lines"
+			},
+			{
+				"command": "listtools.findDistinctLines",
+				"title": "LT: Find Distinct Lines"
 			},
 			{
 				"command": "listtools.findUniqueLines",
