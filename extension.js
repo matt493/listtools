@@ -5,34 +5,93 @@ const vscode = require('vscode');
  */
 function activate(context) {
 
-	let remDupelines = vscode.commands.registerCommand('listtools.removeDuplicateLines', function () {
-		vscode.window.showInformationMessage('Removing duplicate lines');
-		let op = vscode.commands.executeCommand("editor.action.removeDuplicateLines");
-		console.log(op.then())
+	let remDupelines = vscode.commands.registerCommand('listtools.findDistinctLines', async function () {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			vscode.window.showInformationMessage('No active editor found');
+			return;
+		}
+
+		const selectedText = editor.document.getText(editor.selection);
+		if (!selectedText) {
+			vscode.window.showInformationMessage('No lines selected');
+			return;
+		}
+
+		const lines = selectedText.split(/\r?\n/).filter(line => line.trim() !== '');
+		const distinctLines = Array.from(new Set(lines));
+
+		if (distinctLines.length > 0) {
+			distinctLines.unshift('Distinct Lines: lines with all duplicates removed');
+			const document = await vscode.workspace.openTextDocument({ content: distinctLines.join('\n') });
+    		vscode.window.showTextDocument(document, vscode.ViewColumn.Beside);
+		} else {
+			vscode.window.showInformationMessage('No distinct lines found');
+		}
 	});
 	context.subscriptions.push(remDupelines);
 
 	let sortLinesAsc = vscode.commands.registerCommand('listtools.sortLinesAscending', function () {
-		vscode.window.showInformationMessage('Sorting lines ascending',);
 		vscode.commands.executeCommand("editor.action.sortLinesAscending");
 	});
 	context.subscriptions.push(sortLinesAsc);
 
 	let sortLinesDesc = vscode.commands.registerCommand('listtools.sortLinesDescending', function () {
-		vscode.window.showInformationMessage('Sorting lines descending',);
 		vscode.commands.executeCommand("editor.action.sortLinesDescending");
 	});
 	context.subscriptions.push(sortLinesDesc);
 
-	let findDupeLines = vscode.commands.registerCommand('listtools.findDuplicateLines', function () {
-		vscode.window.showInformationMessage('Finding duplicate lines',);
-		//TODO: Find duplicate lines
+	let findDupeLines = vscode.commands.registerCommand('listtools.findDuplicateLines', async function () {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			vscode.window.showInformationMessage('No active editor found');
+			return;
+		}
+
+		const selectedText = editor.document.getText(editor.selection);
+		if (!selectedText) {
+			vscode.window.showInformationMessage('No lines selected');
+			return;
+		}
+
+		const lines = selectedText.split(/\r?\n/).filter(line => line.trim() !== '');
+
+		const duplicateLines = Array.from(new Set(lines.filter((line, index) => lines.indexOf(line) !== index)));
+		if (duplicateLines.length > 0) {
+			duplicateLines.unshift('Duplicate Lines: lines with duplicates');
+			const document = await vscode.workspace.openTextDocument({ content: duplicateLines.join('\n') });
+    		vscode.window.showTextDocument(document, vscode.ViewColumn.Beside);
+			
+		} else {
+			vscode.window.showInformationMessage('No duplicate lines found');
+		}
 	});
 	context.subscriptions.push(findDupeLines);
 
-	let findUniqueLines = vscode.commands.registerCommand('listtools.findUniqueLines', function () {
-		vscode.window.showInformationMessage('Finding unique lines',);
-		//TODO: Find unique lines
+	let findUniqueLines = vscode.commands.registerCommand('listtools.findUniqueLines', async function () {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			vscode.window.showInformationMessage('No active editor found');
+			return;
+		}
+
+		const selectedText = editor.document.getText(editor.selection);
+		if (!selectedText) {
+			vscode.window.showInformationMessage('No lines selected');
+			return;
+		}
+
+		const lines = selectedText.split(/\r?\n/).filter(line => line.trim() !== '');
+		const duplicateLines = lines.filter((line, index) => lines.indexOf(line) !== index);
+		const uniqueLines = lines.filter(line => !duplicateLines.includes(line));
+		if (uniqueLines.length > 0) {
+			uniqueLines.unshift('Unique Lines: lines with no duplicates');
+			const document = await vscode.workspace.openTextDocument({ content: uniqueLines.join('\n') });
+    		vscode.window.showTextDocument(document, vscode.ViewColumn.Beside);
+			
+		} else {
+			vscode.window.showInformationMessage('No unique lines found');
+		}
 	});
 	context.subscriptions.push(findUniqueLines);
 }

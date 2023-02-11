@@ -1,6 +1,6 @@
 {
 	"name": "listtools",
-	"displayName": "ListTools",
+	"displayName": "List Tools",
 	"description": "Some list utils",
 	"version": "0.0.2",
 	"publisher": "MathewReji",
@@ -25,10 +25,6 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "listtools.removeDuplicateLines",
-				"title": "LT: Remove Duplicate Lines"
-			},
-			{
 				"command": "listtools.sortLinesAscending",
 				"title": "LT: Sort Lines Ascending"
 			},
@@ -39,6 +35,10 @@
 			{
 				"command": "listtools.findDuplicateLines",
 				"title": "LT: Find Duplicate Lines"
+			},
+			{
+				"command": "listtools.findDistinctLines",
+				"title": "LT: Find Distinct Lines"
 			},
 			{
 				"command": "listtools.findUniqueLines",
