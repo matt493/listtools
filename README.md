@@ -4,3 +4,4 @@
  - `LT: Find Duplicate Lines` - Find all the lines in selection that have duplicates
  - `LT: Find Distinct Lines` - Find all the distinct lines within selection
  - `LT: Find Unique Lines` - Find all the lines in selection that have no duplicates
+ - `LT: Number Selected Lines` - Number all the selected lines 1 to n (muliple cursor selection not supported)
