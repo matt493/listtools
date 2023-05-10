@@ -94,6 +94,29 @@ function activate(context) {
 		}
 	});
 	context.subscriptions.push(findUniqueLines);
+
+	let numberLines = vscode.commands.registerCommand('listtools.numberLines', async function () {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			vscode.window.showInformationMessage('No active editor found');
+			return;
+		}
+
+		const selectedText = editor.document.getText(editor.selection);
+		if (!selectedText) {
+			vscode.window.showInformationMessage('No lines selected');
+			return;
+		}
+
+		editor.edit((editBuilder) => {
+			for (let i = editor.selection.start.line,lineNo = 1; i <= editor.selection.end.line; i++, lineNo++) {
+				const line = editor.document.lineAt(i);
+				editBuilder.insert(line.range.start, lineNo.toString() + ":\t");
+			}
+		});
+	
+	});
+	context.subscriptions.push(numberLines);
 }
 
 // This method is called when your extension is deactivated
